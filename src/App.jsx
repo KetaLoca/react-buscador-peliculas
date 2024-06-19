@@ -69,7 +69,7 @@ function App() {
             (
               <ul className='movies'>
                 {movies.map(movie => (
-                  <li className='movie' key={movie.imdbID} style={{ border: '1px solid black', padding: '10px', margin: '10px', listStyleType: 'none', textAlign: 'center' }}>
+                  <li className='movie' key={movie.imdbID}>
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
                     <img src={movie.Poster} alt='Poster correspondiente a la película' />
