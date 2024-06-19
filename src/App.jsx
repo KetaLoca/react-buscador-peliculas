@@ -5,7 +5,7 @@ import responseMovies from './mocks/with-results.json'
 import withoutResults from './mocks/no-results.json'
 
 function App() {
-  const movies = responseMovies.Search
+  const [movies, setMovies] = useState(responseMovies.Search)
   const hasMovies = movies?.length > 0
   const inputRef = useRef() //alternativa para recuperar datos
   const isFirstInput = useRef(true)
@@ -14,7 +14,17 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(inputQuery)
+    getMovies()
+  }
+
+  const getMovies = () => {
+    if (inputQuery != '') {
+      fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + inputQuery)
+        .then(res => res.json())
+        .then(json => {
+          setMovies(json)
+        })
+    } else { setMovies(withoutResults) }
   }
 
   const handleChange = (event) => {
@@ -51,7 +61,7 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
           <input onChange={handleChange} value={inputQuery} name='query' placeholder='Avengers, Star Wars, The Matrix...' />
-          <button type='submit'>Buscar</button>
+          <button onClick={handleSubmit} type='submit'>Buscar</button>
         </form>
         {error && <p style={{ color: 'red' }} className='error'>{error}</p>}
       </header>
@@ -61,7 +71,7 @@ function App() {
             (
               <ul className='movies'>
                 {movies.map(movie => (
-                  <li className='movie'  key={movie.imdbID}>
+                  <li className='movie' key={movie.imdbID}>
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
                     <img src={movie.Poster} alt='Poster correspondiente a la película' />
