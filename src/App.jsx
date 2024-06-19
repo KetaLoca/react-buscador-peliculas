@@ -14,21 +14,15 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    getMovies()
+    getMovies(inputQuery)
   }
 
-  const getMovies = () => {
-    if (inputQuery != '') {
-      fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + inputQuery)
-        .then(res => res.json())
-<<<<<<< HEAD
-        .then(json => {
-          setMovies(json)
-        })
-=======
-        .then(json => { setMovies(json) })
->>>>>>> 0cf3ce2c3d2e32f36b098dc940752387e80a1752
-    } else { setMovies(withoutResults) }
+  const getMovies = (datos) => {
+    fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + datos)
+      .then(res => res.json())
+      .then(json => {
+        setMovies(json)
+      })
   }
 
   const handleChange = (event) => {
