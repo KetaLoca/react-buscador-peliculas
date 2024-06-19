@@ -21,7 +21,7 @@ function App() {
     fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + datos)
       .then(res => res.json())
       .then(json => {
-        setMovies(json)
+        setMovies(json.Search)
       })
   }
 
