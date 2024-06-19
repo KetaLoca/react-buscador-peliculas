@@ -59,12 +59,12 @@ function App() {
         {
           hasMovies ?
             (
-              <ul>
+              <ul className='movies'>
                 {movies.map(movie => (
-                  <li key={movie.imdbID}>
+                  <li className='movie' key={movie.imdbID}>
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
-                    <img src={movie.Poster} alt='Poster película' />
+                    <img src={movie.Poster} alt='Poster correspondiente a la película' />
                   </li>
                 ))}
               </ul>
