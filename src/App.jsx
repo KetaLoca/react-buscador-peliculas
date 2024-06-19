@@ -58,7 +58,7 @@ function App() {
       <header>
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
-          <input onChange={handleChange} value={inputQuery} name='query' placeholder='Avengers, Star Wars, The Matrix...' />
+          <input onChange={handleChange} value={inputQuery} name='query' placeholder='Barra de búsqueda' />
           <button onClick={handleSubmit} type='submit'>Buscar</button>
         </form>
         {error && <p style={{ color: 'red' }} className='error'>{error}</p>}
