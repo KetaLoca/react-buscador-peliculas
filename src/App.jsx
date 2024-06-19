@@ -7,7 +7,7 @@ import withoutResults from './mocks/no-results.json'
 function App() {
   const movies = responseMovies.Search
   const hasMovies = movies?.length > 0
-  const inputRef = useRef()
+  const inputRef = useRef() //alternativa para recuperar datos
   const isFirstInput = useRef(true)
   const [inputQuery, setQuery] = useState('')
   const [error, setError] = useState(null)
@@ -61,7 +61,7 @@ function App() {
             (
               <ul className='movies'>
                 {movies.map(movie => (
-                  <li className='movie' key={movie.imdbID}>
+                  <li className='movie'  key={movie.imdbID}>
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
                     <img src={movie.Poster} alt='Poster correspondiente a la película' />
