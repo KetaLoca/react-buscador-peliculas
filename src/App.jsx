@@ -34,7 +34,7 @@ function App() {
   }
 
   useEffect(() => {
-    const sortedMovies = sort ? [...movies].sort((a, b) => a.Title.localeCompare(b.Title)) : getMovies()
+    const sortedMovies = sort ? [...movies].sort((a, b) => a.Title.localeCompare(b.Title)) : movies
     setMovies(sortedMovies)
   }, [sort])
 
