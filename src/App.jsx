@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useMemo } from 'react'
 import './App.css'
 
 function App() {
@@ -33,10 +33,9 @@ function App() {
       })
   }
 
-  useEffect(() => {
-    const sortedMovies = sort ? [...movies].sort((a, b) => a.Title.localeCompare(b.Title)) : movies
-    setMovies(sortedMovies)
-  }, [sort])
+  const sortedMovies = useMemo(() => {
+    return sort ? [...movies].sort((a, b) => a.Title.localeCompare(b.Title)) : movies
+  }, [sort, movies])
 
   useEffect(() => {
     if (isFirstInput.current) {
@@ -78,7 +77,7 @@ function App() {
           hasMovies ?
             (
               <ul className='movies'>
-                {movies.map(movie => (
+                {sortedMovies.map(movie => (
                   <li className='movie' key={movie.imdbID}>
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
