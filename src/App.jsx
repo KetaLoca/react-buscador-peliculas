@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
-import { useRef } from 'react' //un método para recuperar datos del input del formulario
 
 function App() {
   const inputRef = useRef() //alternativa para recuperar datos
+  const [sort, setSort] = useState(false)
   const [inputQuery, setQuery] = useState('')
   const [movies, setMovies] = useState()
   const hasMovies = movies?.length > 0
@@ -17,6 +17,10 @@ function App() {
 
   const handleChange = (event) => {
     setQuery(event.target.value)
+  }
+
+  const handleSort = () => {
+    setSort(!sort)
   }
 
   const getMovies = () => {
@@ -59,6 +63,7 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
           <input onChange={handleChange} value={inputQuery} name='query' placeholder='Barra de búsqueda' />
+          <input type='checkbox' onChange={handleSort} checked={sort} />
           <button className='boton' type='submit'>Buscar</button>
         </form>
         {error && <p style={{ color: 'red' }} className='error'>{error}</p>}
