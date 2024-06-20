@@ -34,6 +34,11 @@ function App() {
   }
 
   useEffect(() => {
+    const sortedMovies = sort ? [...movies].sort((a, b) => a.Title.localeCompare(b.Title)) : getMovies()
+    setMovies(sortedMovies)
+  }, [sort])
+
+  useEffect(() => {
     if (isFirstInput.current) {
       isFirstInput.current = inputQuery == ''
       return
