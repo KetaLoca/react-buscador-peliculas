@@ -1,32 +1,32 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useRef } from 'react' //un método para recuperar datos del input del formulario
+import { useMovies } from './hooks/moviesProvider'
 import responseMovies from './mocks/with-results.json'
-import withoutResults from './mocks/no-results.json'
 
 function App() {
-  const [movies, setMovies] = useState(responseMovies.Search)
-  const hasMovies = movies?.length > 0
   const inputRef = useRef() //alternativa para recuperar datos
   const isFirstInput = useRef(true)
+  const [movies, setMovies] = useState(responseMovies.Search)
   const [inputQuery, setQuery] = useState('')
   const [error, setError] = useState(null)
+  const hasMovies = movies?.length > 0
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    getMovies(inputQuery)
-  }
-
-  const getMovies = (datos) => {
-    fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + datos)
-      .then(res => res.json())
-      .then(json => {
-        setMovies(json.Search)
-      })
+    getMovies()
   }
 
   const handleChange = (event) => {
     setQuery(event.target.value)
+  }
+
+  const getMovies = () => {
+    fetch('https://www.omdbapi.com/?apikey=9132bca6&s=' + inputQuery)
+      .then(res => res.json())
+      .then(json => {
+        setMovies(json.Search)
+      })
   }
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
           <input onChange={handleChange} value={inputQuery} name='query' placeholder='Barra de búsqueda' />
-          <button onClick={handleSubmit} type='submit'>Buscar</button>
+          <button className='boton' onClick={handleSubmit} type='submit'>Buscar</button>
         </form>
         {error && <p style={{ color: 'red' }} className='error'>{error}</p>}
       </header>
