@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { useRef } from 'react' //un método para recuperar datos del input del formulario
-import { useMovies } from './hooks/moviesProvider'
-import responseMovies from './mocks/with-results.json'
 
 function App() {
   const inputRef = useRef() //alternativa para recuperar datos
-  const isFirstInput = useRef(true)
-  const [movies, setMovies] = useState(responseMovies.Search)
   const [inputQuery, setQuery] = useState('')
-  const [error, setError] = useState(null)
+  const [movies, setMovies] = useState()
   const hasMovies = movies?.length > 0
+  const isFirstInput = useRef(true)
+  const [error, setError] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -26,6 +24,8 @@ function App() {
       .then(res => res.json())
       .then(json => {
         setMovies(json.Search)
+      }).catch(err => {
+        alert('Error al recuperar los datos de la API')
       })
   }
 
@@ -59,7 +59,7 @@ function App() {
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
           <input onChange={handleChange} value={inputQuery} name='query' placeholder='Barra de búsqueda' />
-          <button className='boton' onClick={handleSubmit} type='submit'>Buscar</button>
+          <button className='boton' type='submit'>Buscar</button>
         </form>
         {error && <p style={{ color: 'red' }} className='error'>{error}</p>}
       </header>
