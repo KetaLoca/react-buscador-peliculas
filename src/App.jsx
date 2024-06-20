@@ -20,7 +20,7 @@ function App() {
   }
 
   const handleSort = () => {
-    setSort(!sort)
+    if (movies == null) { alert('No puedes filtrar una lista vacía') } else { setSort(!sort) }
   }
 
   const getMovies = () => {
